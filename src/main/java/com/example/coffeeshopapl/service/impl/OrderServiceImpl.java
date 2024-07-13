@@ -50,6 +50,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void readyOrder(Long id) {
-
+        orderRepository.deleteById(id);
     }
 }
