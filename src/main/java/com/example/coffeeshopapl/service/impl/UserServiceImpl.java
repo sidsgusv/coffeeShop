@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -52,6 +53,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserViewModel> findAllUsersAndCountOfOrdersDesc() {
-        return null;
+
+        return userRepository.findAllByOrdersDescending()
+                .stream()
+                .map(user -> {
+                    UserViewModel userViewModel = new UserViewModel();
+                    userViewModel.setUsername(user.getUsername());
+                    userViewModel.setCuntOfOrders(user.getOrders().size());
+                    return userViewModel;
+                })
+                .collect(Collectors.toList());
     }
 }

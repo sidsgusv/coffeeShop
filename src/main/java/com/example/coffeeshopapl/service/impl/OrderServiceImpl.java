@@ -12,6 +12,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class OrderServiceImpl implements OrderService {
     private final ModelMapper modelMapper;
@@ -34,11 +36,16 @@ public class OrderServiceImpl implements OrderService {
                 .map(orderServiceModel, Order.class);
         order.setEmployee(userService.findById(currentUser.getId()));
         order.setCategory(categoryService.findByCategoryNameEnum(orderServiceModel.getCategory()));
+        orderRepository.save(order);
     }
 
     @Override
     public List<OrderViewModel> findOrderOrderByPriceDesc() {
-        return null;
+        return orderRepository
+                .findAllByOrderByPriceDesc()
+                .stream()
+                .map(order -> modelMapper.map(order, OrderViewModel.class))
+                .collect(Collectors.toList());
     }
 
     @Override
