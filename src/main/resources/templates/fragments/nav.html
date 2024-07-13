@@ -6,16 +6,16 @@
           <a class="nav-link" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/">Login</a>
+          <a th:if="${@currentUser.id==null}" class="nav-link" href="/users/login">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/">Register</a>
+          <a th:if="${@currentUser.id==null}" class="nav-link" href="/users/register">Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/">Add Order</a>
+          <a th:unless="${@currentUser.id==null}" class="nav-link" href="/orders/add">Add Order</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/">Logout</a>
+          <a th:unless="${@currentUser.id==null}" class="nav-link" href="/users/logout">Logout</a>
         </li>
       </ul>
       <img width="50px" src="/images/coffee.png" alt="Coffee image">

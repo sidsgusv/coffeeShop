@@ -5,6 +5,7 @@ import com.example.coffeeshopapl.model.service.UserServiceModel;
 import com.example.coffeeshopapl.model.view.UserViewModel;
 import com.example.coffeeshopapl.repository.UserRepository;
 import com.example.coffeeshopapl.service.UserService;
+import com.example.coffeeshopapl.util.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final CurrentUser currentUser;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, CurrentUser currentUser) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.currentUser = currentUser;
     }
 
 
@@ -37,6 +40,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void loginUser(Long id, String username) {
+        currentUser.setId(id);
+        currentUser.setUsername(username);
 
     }
 

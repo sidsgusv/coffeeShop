@@ -42,7 +42,7 @@ public class UserController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
             return "redirect:register";
         }
-      // userService.registerUser(modelMapper.map(userRegisterBindingModel, UserServiceModel.class));
+       userService.registerUser(modelMapper.map(userRegisterBindingModel, UserServiceModel.class));
 
         return "redirect:login";
     }
@@ -86,9 +86,13 @@ public class UserController {
     }
 
 
-
+    @ModelAttribute
+    public UserLoginBindingModel userLoginBindingModel(){
+        return new UserLoginBindingModel();
+    }
     @ModelAttribute
     public UserRegisterBindingModel userRegisterBindingModel(){
         return new UserRegisterBindingModel();
     }
 }
+
